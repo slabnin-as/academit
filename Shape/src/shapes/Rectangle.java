@@ -1,7 +1,9 @@
+package shapes;
+
 public class Rectangle implements Shape {
     private double width;
     private double height;
-    private String name = "Прямоугольник";
+    private static final String name = "Прямоугольник";
 
     public Rectangle(double width, double height) {
         this.width = width;
@@ -28,16 +30,21 @@ public class Rectangle implements Shape {
         return name + "." + " Площадь фигуры " + getArea() + "; " + "периметр фигуры " + getPerimeter();
     }
 
+    @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
         Rectangle rectangle = (Rectangle) obj;
-        return (this.width == rectangle.width || this.width == rectangle.height) && (this.height == rectangle.height || this.height == rectangle.width);
+        return width == rectangle.width && height == rectangle.height;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 13;
+        final int prime = 37;
         int hash = 1;
         hash = hash * prime + Double.hashCode(width);
         hash = hash * prime + Double.hashCode(height);

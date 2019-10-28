@@ -1,6 +1,8 @@
+package shapes;
+
 public class Square implements Shape {
     private double side;
-    private String name = "Квадрат";
+    private static final String name = "Квадрат";
 
     public Square(double side) {
         this.side = side;
@@ -26,15 +28,20 @@ public class Square implements Shape {
         return name + "." + " Площадь фигуры " + getArea() + "; " + "периметр фигуры " + getPerimeter();
     }
 
+    @Override
     public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
         Square square = (Square) obj;
-        return this.side == square.side;
+        return side == square.side;
     }
 
     public int hashCode() {
-        final int prime = 13;
+        final int prime = 37;
         int hash = 1;
         hash = hash * prime + Double.hashCode(side);
         return hash;

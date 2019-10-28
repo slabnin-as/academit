@@ -1,4 +1,8 @@
-import java.util.*;
+package main;
+
+import shapes.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 class Main {
     public static void main(String[] args) {
@@ -23,6 +27,6 @@ class Main {
     }
 
     private static void sortMaxPerimeterShape(Shape[] shapes){
-        Arrays.sort(shapes, Collections.reverseOrder(new ShapeAreaComparator()));
+        Arrays.sort(shapes, Collections.reverseOrder(new ShapePerimeterComparator()));
     }
 }
