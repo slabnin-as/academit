@@ -1,6 +1,7 @@
 package main;
 
 import shapes.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -13,20 +14,20 @@ class Main {
         shapes[3] = new Rectangle(6.23, 12.54);
         shapes[4] = new Circle(4.34);
         shapes[5] = new Circle(11.65);
-        shapes[6] = new Triangle(2.5,4.7,7.3,-2.6,-3.8,-1.5);
+        shapes[6] = new Triangle(2.5, 4.7, 7.3, -2.6, -3.8, -1.5);
 
-        sortMaxAreaShape(shapes);
-        System.out.println(shapes[0]);
+        sortByAreaShapeDescending(shapes);
+        System.out.println(shapes[6]);
 
-        sortMaxPerimeterShape(shapes);
+        sortByPerimeterShapeDescending(shapes);
         System.out.println(shapes[1]);
     }
 
-    private static void sortMaxAreaShape(Shape[] shapes){
+    private static void sortByAreaShapeDescending(Shape[] shapes) {
         Arrays.sort(shapes, Collections.reverseOrder(new ShapeAreaComparator()));
     }
 
-    private static void sortMaxPerimeterShape(Shape[] shapes){
+    private static void sortByPerimeterShapeDescending(Shape[] shapes) {
         Arrays.sort(shapes, Collections.reverseOrder(new ShapePerimeterComparator()));
     }
 }

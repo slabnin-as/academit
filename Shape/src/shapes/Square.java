@@ -25,7 +25,10 @@ public class Square implements Shape {
     }
 
     public String toString() {
-        return name + "." + " Площадь фигуры " + getArea() + "; " + "периметр фигуры " + getPerimeter();
+        return name + "." + System.lineSeparator() +
+                "Площадь: " + getArea() + System.lineSeparator() +
+                "Периметр: " + getPerimeter() + System.lineSeparator() +
+                "Сторона: " + side + System.lineSeparator();
     }
 
     @Override
@@ -40,6 +43,7 @@ public class Square implements Shape {
         return side == square.side;
     }
 
+    @Override
     public int hashCode() {
         final int prime = 37;
         int hash = 1;

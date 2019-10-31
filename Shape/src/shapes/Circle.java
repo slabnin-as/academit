@@ -25,7 +25,10 @@ public class Circle implements Shape {
     }
 
     public String toString() {
-        return name + "." + " Площадь фигуры: " + getArea() + "; " + "периметр фигуры: " + getPerimeter();
+        return name + "." + System.lineSeparator() +
+                "Площадь: " + getArea() + System.lineSeparator() +
+                "Периметр: " + getPerimeter() + System.lineSeparator() +
+                "Радиус: " + radius + System.lineSeparator();
     }
 
     @Override

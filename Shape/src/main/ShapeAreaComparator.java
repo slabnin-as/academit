@@ -1,4 +1,6 @@
-package shapes;
+package main;
+
+import shapes.Shape;
 
 import java.util.Comparator;
 

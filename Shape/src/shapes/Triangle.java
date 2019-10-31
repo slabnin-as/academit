@@ -7,10 +7,6 @@ public class Triangle implements Shape {
     private double y2;
     private double x3;
     private double y3;
-    private double a;
-    private double b;
-    private double c;
-    private double halfPerimeter;
     private static final String name = "Треугольник";
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
@@ -20,13 +16,9 @@ public class Triangle implements Shape {
         this.y2 = y2;
         this.x3 = x3;
         this.y3 = y3;
-        a = getSide(x1, y1, x2, y2);
-        b = getSide(x2, y2, x3, y3);
-        c = getSide(x3, y3, x1, y1);
-        halfPerimeter = (a + b + c) / 2;
     }
 
-    private double getSide(double pointX1, double pointY1, double pointX2, double pointY2) {
+    private static double getSide(double pointX1, double pointY1, double pointX2, double pointY2) {
         return Math.sqrt(Math.pow((pointX2 - pointX1), 2) + Math.pow((pointY2 - pointY1), 2));
     }
 
@@ -39,16 +31,30 @@ public class Triangle implements Shape {
     }
 
     public double getArea() {
+        double a = getSide(x1, y1, x2, y2);
+        double b = getSide(x2, y2, x3, y3);
+        double c = getSide(x3, y3, x1, y1);
+        double halfPerimeter = (a + b + c) / 2;
         return Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
     }
 
     public double getPerimeter() {
+        double a = getSide(x1, y1, x2, y2);
+        double b = getSide(x2, y2, x3, y3);
+        double c = getSide(x3, y3, x1, y1);
         return a + b + c;
     }
 
     @Override
     public String toString() {
-        return name + "." + " Площадь фигуры " + getArea() + "; " + "периметр фигуры " + getPerimeter();
+        return name + "." + System.lineSeparator() +
+                "Площадь: " + getArea() + System.lineSeparator() +
+                "Периметр " + getPerimeter() + System.lineSeparator() +
+                "Ширина: " + getWidth() + System.lineSeparator() +
+                "Высота: " + getHeight() + System.lineSeparator() +
+                "(x1, y1):{" + x1 + ", " + y1 + "}" + System.lineSeparator() +
+                "(x2, y2):{" + x2 + ", " + y2 + "}" + System.lineSeparator() +
+                "(x3, y3):{" + x3 + ", " + y3 + "}" + System.lineSeparator();
     }
 
     @Override
@@ -60,16 +66,20 @@ public class Triangle implements Shape {
             return false;
         }
         Triangle triangle = (Triangle) obj;
-        return a == triangle.a && b == triangle.b && c == triangle.c;
+        return x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 && y2 == triangle.y2
+                && x3 == triangle.x3 && y3 == triangle.y3;
     }
 
     @Override
     public int hashCode() {
         final int prime = 37;
         int hash = 1;
-        hash = hash * prime + Double.hashCode(a);
-        hash = hash * prime + Double.hashCode(b);
-        hash = hash * prime + Double.hashCode(c);
+        hash = hash * prime + Double.hashCode(x1);
+        hash = hash * prime + Double.hashCode(y1);
+        hash = hash * prime + Double.hashCode(x2);
+        hash = hash * prime + Double.hashCode(y2);
+        hash = hash * prime + Double.hashCode(x3);
+        hash = hash * prime + Double.hashCode(y3);
         return hash;
     }
 }

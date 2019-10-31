@@ -27,7 +27,11 @@ public class Rectangle implements Shape {
     }
 
     public String toString() {
-        return name + "." + " Площадь фигуры " + getArea() + "; " + "периметр фигуры " + getPerimeter();
+        return name + "." + System.lineSeparator() +
+                "Площадь: " + getArea() + System.lineSeparator() +
+                "Периметр: " + getPerimeter() + System.lineSeparator() +
+                "Ширина: " + width + System.lineSeparator() +
+                "Высота: " + height + System.lineSeparator();
     }
 
     @Override
