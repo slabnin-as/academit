@@ -22,14 +22,17 @@ public class Triangle implements Shape {
         return Math.sqrt(Math.pow((pointX2 - pointX1), 2) + Math.pow((pointY2 - pointY1), 2));
     }
 
+    @Override
     public double getWidth() {
         return Math.max(Math.max(x1, x2), x3) - Math.min(Math.min(x1, x2), x3);
     }
 
+    @Override
     public double getHeight() {
         return Math.max(Math.max(y1, y2), y3) - Math.min(Math.min(y1, y2), y3);
     }
 
+    @Override
     public double getArea() {
         double a = getSide(x1, y1, x2, y2);
         double b = getSide(x2, y2, x3, y3);
@@ -38,6 +41,7 @@ public class Triangle implements Shape {
         return Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
     }
 
+    @Override
     public double getPerimeter() {
         double a = getSide(x1, y1, x2, y2);
         double b = getSide(x2, y2, x3, y3);

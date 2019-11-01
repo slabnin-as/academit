@@ -16,18 +16,18 @@ class Main {
         shapes[5] = new Circle(11.65);
         shapes[6] = new Triangle(2.5, 4.7, 7.3, -2.6, -3.8, -1.5);
 
-        sortByAreaShapeDescending(shapes);
+        sortShapesByAreaDescending(shapes);
         System.out.println(shapes[6]);
 
-        sortByPerimeterShapeDescending(shapes);
+        sortShapesByPerimeterDescending(shapes);
         System.out.println(shapes[1]);
     }
 
-    private static void sortByAreaShapeDescending(Shape[] shapes) {
+    private static void sortShapesByAreaDescending(Shape[] shapes) {
         Arrays.sort(shapes, Collections.reverseOrder(new ShapeAreaComparator()));
     }
 
-    private static void sortByPerimeterShapeDescending(Shape[] shapes) {
+    private static void sortShapesByPerimeterDescending(Shape[] shapes) {
         Arrays.sort(shapes, Collections.reverseOrder(new ShapePerimeterComparator()));
     }
 }

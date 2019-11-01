@@ -10,22 +10,27 @@ public class Rectangle implements Shape {
         this.height = height;
     }
 
+    @Override
     public double getWidth() {
         return width;
     }
 
+    @Override
     public double getHeight() {
         return height;
     }
 
+    @Override
     public double getArea() {
         return width * height;
     }
 
+    @Override
     public double getPerimeter() {
         return (width + height) * 2;
     }
 
+    @Override
     public String toString() {
         return name + "." + System.lineSeparator() +
                 "Площадь: " + getArea() + System.lineSeparator() +
