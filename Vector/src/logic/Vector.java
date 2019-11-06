@@ -31,7 +31,7 @@ public class Vector {
         return size;
     }
 
-    public double[] getVector() {
+    private double[] getVector() {
         return components;
     }
 
@@ -40,7 +40,7 @@ public class Vector {
         StringBuilder builder = new StringBuilder();
         builder.append("{");
         for (double e : components) {
-            builder.append(e + ", ");
+            builder.append(e).append(", ");
         }
         builder.setCharAt(builder.lastIndexOf(","), '}');
 
@@ -98,6 +98,7 @@ public class Vector {
         double composition = 0;
         while (i < vector1.getSize() && i < vector2.getSize()) {
             composition += vector1.getVector()[i] * vector2.getVector()[i];
+            i++;
         }
 
         return composition;
