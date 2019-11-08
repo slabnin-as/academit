@@ -10,10 +10,32 @@ public class Main {
             list.addFirstElement(e);
         }
         System.out.println(list);
-
-        list.deleteElement(0);
-        System.out.println(list);
-        list.insertElement(3,"TestElem");
-        System.out.println(list);
+        //получение размера списка
+        System.out.println(list.getSize());
+        //получение значения первого элемента
+        System.out.println(list.getFirstElementValue());
+        //получение значения по индексу
+        System.out.println(list.getValue(3));
+        //изменение значения по индексу
+        list.setValue(3, "ChangedValue");
+        System.out.println(list + ":" + list.getSize());
+        //удаление элемента по индексу
+        list.deleteElement(4);
+        System.out.println(list + ":" + list.getSize());
+        //вставка элемента в начало
+        list.addFirstElement("First");
+        System.out.println(list + ":" + list.getSize());
+        //вставка элемента по индексу
+        list.insertElement(5, "Spring");
+        System.out.println(list + ":" + list.getSize());
+        //удаление по значению
+        list.deleteByValue("NSK");
+        System.out.println(list + ":" + list.getSize());
+        //удаление первого элемента
+        list.deleteFirstElement();
+        System.out.println(list + ":" + list.getSize());
+        //разворот списка
+        list.reverse();
+        System.out.println(list + ":" + list.getSize());
     }
 }

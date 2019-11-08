@@ -32,6 +32,10 @@ public class SinglyLinkedList<T> {
         return element;
     }
 
+    public T getFirstElementValue() {
+        return head.getData();
+    }
+
     public T getValue(int index) {
         return getItem(index).getData();
     }
@@ -83,18 +87,27 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean deleteByValue(T value) {
-        ListItem<T> element = head.getNext();
+        ListItem<T> element = head;
 
         for (int i = 0; i < count; i++) {
             if (value.equals(element.getData())) {
                 deleteElement(i);
-                count--;
                 return true;
             }
             element = element.getNext();
         }
 
         return false;
+    }
+
+    public void reverse() {
+        for (int i = 0, j = count - 1; i < j; i++, j--) {
+            ListItem<T> element1 = getItem(i);
+            ListItem<T> element2 = getItem(j);
+            T temp = element1.getData();
+            element1.setData(element2.getData());
+            element2.setData(temp);
+        }
     }
 
     @Override
