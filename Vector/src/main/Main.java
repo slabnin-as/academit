@@ -21,7 +21,7 @@ public class Main {
         //размер вектора2
         System.out.println(vector2.getSize());
         //длина вектора
-        System.out.println(vector2.getVectorLength());
+        System.out.println(vector2.getLength());
 
         //умножение вектора на скаляр
         vector1.multiply(3.58);
@@ -32,7 +32,7 @@ public class Main {
         System.out.println(vector1);
 
         //разворот вектора
-        vector2.reverseVector();
+        vector2.reverse();
         System.out.println(vector2);
 
         //вычитание из другого вектора

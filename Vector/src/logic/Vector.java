@@ -64,7 +64,6 @@ public class Vector {
     }
 
     public static Vector sum(Vector vector1, Vector vector2) {
-
         return new Vector(vector1).sum(vector2);
     }
 
@@ -81,7 +80,6 @@ public class Vector {
     }
 
     public static Vector subtract(Vector vector1, Vector vector2) {
-
         return new Vector(vector1).subtract(vector2);
     }
 
@@ -102,11 +100,11 @@ public class Vector {
         return composition;
     }
 
-    public void reverseVector() {
+    public void reverse() {
         multiply(-1);
     }
 
-    public double getVectorLength() {
+    public double getLength() {
         double sum = 0;
 
         for (double component : components) {
@@ -132,7 +130,9 @@ public class Vector {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
+
         Vector vector = (Vector) obj;
+
         if (components.length != vector.getSize()) {
             return false;
         }
