@@ -3,123 +3,120 @@ package logic;
 import java.util.Arrays;
 
 public class Vector {
-    private int size;
     private double[] components;
 
     public Vector(int n) {
         if (n <= 0) {
-            throw new IllegalArgumentException("размер неверный");
+            throw new IllegalArgumentException("размер вектора должен быть больше 0");
         }
-        size = n;
+
         components = new double[n];
     }
 
     public Vector(double[] components) {
-        size = components.length;
+        if (components.length == 0) {
+            throw new IllegalArgumentException("массив не должен быть пустой");
+        }
+
         this.components = components.clone();
     }
 
     public Vector(int n, double[] components) {
         if (n <= 0) {
-            throw new IllegalArgumentException("размер неверный");
+            throw new IllegalArgumentException("размер вектора должен быть больше 0");
         }
-        size = n;
+
         this.components = Arrays.copyOf(components, n);
     }
 
-    public int getSize() {
-        return size;
+    public Vector(Vector vector) {
+        this.components = vector.components.clone();
     }
 
-    private double[] getVector() {
-        return components;
+    public int getSize() {
+        return components.length;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("{");
         for (double e : components) {
             builder.append(e).append(", ");
         }
-        builder.setCharAt(builder.lastIndexOf(","), '}');
+        builder.setLength(builder.length() - 2);
+        builder.append("}");
 
         return builder.toString();
     }
 
-    public void sumVector(Vector vector) {
-        int i = 0;
-        while (i < size && i < vector.getSize()) {
-            components[i] = components[i] + vector.getVector()[i];
-            i++;
+    public Vector sum(Vector vector) {
+        if (components.length < vector.components.length) {
+            components = Arrays.copyOf(components, vector.components.length);
+        }
+
+        for (int i = 0; i < components.length; i++) {
+            components[i] += vector.components[i];
+        }
+
+        return this;
+    }
+
+    public static Vector sum(Vector vector1, Vector vector2) {
+
+        return new Vector(vector1).sum(vector2);
+    }
+
+    public Vector subtract(Vector vector) {
+        if (components.length < vector.components.length) {
+            components = Arrays.copyOf(components, vector.components.length);
+        }
+
+        for (int i = 0; i < components.length; i++) {
+            components[i] -= vector.components[i];
+        }
+
+        return this;
+    }
+
+    public static Vector subtract(Vector vector1, Vector vector2) {
+
+        return new Vector(vector1).subtract(vector2);
+    }
+
+    public void multiply(double scalar) {
+        for (int i = 0; i < components.length; i++) {
+            components[i] *= scalar;
         }
     }
 
-    public static Vector sumVector(Vector vector1, Vector vector2) {
-        Vector vector;
-        if (vector1.getSize() > vector2.getSize()) {
-            vector = new Vector(vector1.getSize(), vector1.getVector());
-            vector.sumVector(vector2);
-        } else {
-            vector = new Vector(vector2.getSize(), vector2.getVector());
-            vector.sumVector(vector1);
-        }
-        return vector;
-    }
-
-    public void subVector(Vector vector) {
-        int i = 0;
-        while (i < size && i < vector.getSize()) {
-            components[i] = components[i] - vector.getVector()[i];
-            i++;
-        }
-    }
-
-    public static Vector subVector(Vector vector1, Vector vector2) {
-        Vector vector;
-        if (vector1.getSize() > vector2.getSize()) {
-            vector = new Vector(vector1.getSize(), vector1.getVector());
-            vector.subVector(vector2);
-        } else {
-            vector = new Vector(vector2.getSize(), vector2.getVector());
-            vector.subVector(vector1);
-        }
-        return vector;
-    }
-
-    public void scalarVector(double scalar) {
-        for (int i = 0; i < size; i++) {
-            components[i] = components[i] * scalar;
-        }
-    }
-
-    public static double scalarVector(Vector vector1, Vector vector2) {
-        int i = 0;
+    public static double multiplyScalar(Vector vector1, Vector vector2) {
+        int minLength = Math.min(vector1.components.length, vector2.components.length);
         double composition = 0;
-        while (i < vector1.getSize() && i < vector2.getSize()) {
-            composition += vector1.getVector()[i] * vector2.getVector()[i];
-            i++;
+
+        for (int i = 0; i < minLength; i++) {
+            composition += vector1.components[i] * vector2.components[i];
         }
 
         return composition;
     }
 
     public void reverseVector() {
-        for (int i = 0; i < size; i++) {
-            components[i] = components[i] * -1;
-        }
+        multiply(-1);
     }
 
     public double getVectorLength() {
         double sum = 0;
-        for (int i = 0; i < size; i++) {
-            sum += components[i] * components[i];
+
+        for (double component : components) {
+            sum += component * component;
         }
 
         return Math.sqrt(sum);
     }
 
-    public void appendComponent(double element, int index) {
+    public void setComponent(int index, double element) {
         components[index] = element;
     }
 
@@ -136,11 +133,11 @@ public class Vector {
             return false;
         }
         Vector vector = (Vector) obj;
-        if (size != vector.getSize()) {
+        if (components.length != vector.getSize()) {
             return false;
         }
-        for (int i = 0; i < size; i++) {
-            if (components[i] != vector.getVector()[i]) {
+        for (int i = 0; i < components.length; i++) {
+            if (components[i] != vector.components[i]) {
                 return false;
             }
         }
@@ -152,7 +149,6 @@ public class Vector {
     public int hashCode() {
         int prime = 37;
         int hash = 1;
-        hash = hash * prime + Integer.hashCode(size);
         hash = hash * prime + Arrays.hashCode(components);
 
         return hash;
