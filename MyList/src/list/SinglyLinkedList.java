@@ -12,14 +12,14 @@ public class SinglyLinkedList<T> {
         return count;
     }
 
-    public T getHead() {
+    private T getHead() {
         if (count == 0) {
             throw new IndexOutOfBoundsException("Список пуст!");
         }
         return head.getData();
     }
 
-    public ListItem<T> getItem(int index) {
+    private ListItem<T> getItem(int index) {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -101,13 +101,27 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        for (int i = 0, j = count - 1; i < j; i++, j--) {
-            ListItem<T> element1 = getItem(i);
-            ListItem<T> element2 = getItem(j);
-            T temp = element1.getData();
-            element1.setData(element2.getData());
-            element2.setData(temp);
+        ListItem<T> prev = null;
+
+        for (ListItem<T> p = head, pNext; p != null; prev = p, p = pNext) {
+            pNext = p.getNext();
+            p.setNext(prev);
         }
+        head = prev;
+    }
+
+    public SinglyLinkedList<T> copy() {
+        SinglyLinkedList<T> list = new SinglyLinkedList<>();
+        list.count = count;
+
+        list.head = new ListItem<>(getHead());
+        ListItem<T> node = list.head;
+        for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
+            node.setNext(new ListItem<>(p.getData()));
+            node = node.getNext();
+        }
+
+        return list;
     }
 
     @Override

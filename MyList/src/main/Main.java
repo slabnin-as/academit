@@ -17,10 +17,10 @@ public class Main {
         //получение значения по индексу
         System.out.println(list.getValue(3));
         //изменение значения по индексу
-        list.setValue(3, "ChangedValue");
+        System.out.println(list.setValue(3, "ChangedValue"));
         System.out.println(list + ":" + list.getSize());
         //удаление элемента по индексу
-        list.deleteElement(4);
+        System.out.println(list.deleteElement(4));
         System.out.println(list + ":" + list.getSize());
         //вставка элемента в начало
         list.addFirstElement("First");
@@ -29,7 +29,7 @@ public class Main {
         list.insertElement(5, "Spring");
         System.out.println(list + ":" + list.getSize());
         //удаление по значению
-        list.deleteByValue("NSK");
+        System.out.println(list.deleteByValue("NSK"));
         System.out.println(list + ":" + list.getSize());
         //удаление первого элемента
         list.deleteFirstElement();
@@ -37,5 +37,8 @@ public class Main {
         //разворот списка
         list.reverse();
         System.out.println(list + ":" + list.getSize());
+        //копирование списка
+        SinglyLinkedList<String> list2 = list.copy();
+        System.out.println(list2);
     }
 }
