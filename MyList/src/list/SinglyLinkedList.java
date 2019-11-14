@@ -127,6 +127,7 @@ public class SinglyLinkedList<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("{");
+
         for (ListItem<T> element = head; element != null; element = element.getNext()) {
             if (element.getData() == null) {
                 builder.append("null;");
