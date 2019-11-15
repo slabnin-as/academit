@@ -276,6 +276,10 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("[");
+        if(isEmpty()){
+            builder.append("]");
+            return builder.toString();
+        }
         for (int i = 0; i < size; i++) {
             builder.append(items[i]);
             builder.append(", ");
