@@ -2,17 +2,17 @@ package arraylist;
 
 import java.util.*;
 
-public class MyArrayList<E> implements List<E> {
-    private E[] items;
+public class MyArrayList<T> implements List<T> {
+    private T[] items;
     private int size;
     private int modCount = 0;
 
     public MyArrayList(int size) {
         //noinspection unchecked
-        items = (E[]) new Object[size];
+        items = (T[]) new Object[size];
     }
 
-    private class MyListIterator implements Iterator<E> {
+    private class MyListIterator implements Iterator<T> {
         private int currentIndex = -1;
         private int currentModCount = modCount;
 
@@ -20,7 +20,7 @@ public class MyArrayList<E> implements List<E> {
             return currentIndex + 1 < size;
         }
 
-        public E next() {
+        public T next() {
             if (!hasNext()) {
                 throw new NoSuchElementException("следующего элемента нет");
             }
@@ -53,7 +53,7 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<T> iterator() {
         return new MyListIterator();
     }
 
@@ -75,7 +75,7 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean add(E e) {
+    public boolean add(T e) {
         if (size == items.length) {
             ensureCapacity();
         }
@@ -108,7 +108,7 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> collection) {
+    public boolean addAll(Collection<? extends T> collection) {
         if (collection.size() == 0) {
             return false;
         }
@@ -118,7 +118,7 @@ public class MyArrayList<E> implements List<E> {
             ensureCapacity();
         }
 
-        for (E e : collection) {
+        for (T e : collection) {
             add(e);
         }
 
@@ -126,7 +126,7 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean addAll(int i, Collection<? extends E> collection) {
+    public boolean addAll(int i, Collection<? extends T> collection) {
         if (collection.size() == 0) {
             return false;
         }
@@ -136,7 +136,7 @@ public class MyArrayList<E> implements List<E> {
             ensureCapacity();
         }
 
-        for (E e : collection) {
+        for (T e : collection) {
             add(i, e);
             i++;
         }
@@ -180,12 +180,12 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public void clear() {
         //noinspection unchecked
-        items = (E[]) new Object[0];
+        items = (T[]) new Object[0];
         size = 0;
     }
 
     @Override
-    public E get(int i) {
+    public T get(int i) {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
@@ -194,18 +194,18 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public E set(int i, E e) {
+    public T set(int i, T e) {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
-        E prev = items[i];
+        T prev = items[i];
         items[i] = e;
 
         return prev;
     }
 
     @Override
-    public void add(int i, E e) {
+    public void add(int i, T e) {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
@@ -220,12 +220,12 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public E remove(int i) {
+    public T remove(int i) {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
 
-        E removedElement = items[i];
+        T removedElement = items[i];
 
         System.arraycopy(items, i + 1, items, i, size - i - 1);
         size--;
@@ -259,17 +259,17 @@ public class MyArrayList<E> implements List<E> {
     }
 
     @Override
-    public ListIterator<E> listIterator() {
+    public ListIterator<T> listIterator() {
         return null;
     }
 
     @Override
-    public ListIterator<E> listIterator(int i) {
+    public ListIterator<T> listIterator(int i) {
         return null;
     }
 
     @Override
-    public List<E> subList(int i, int i1) {
+    public List<T> subList(int i, int i1) {
         return null;
     }
 

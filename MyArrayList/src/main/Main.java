@@ -29,10 +29,8 @@ public class Main {
         list1.trimToSize();
         System.out.println(list1);
 
-        System.out.println();
-        System.out.println(list1);
         System.out.println(list2);
-        list1.retainAll(list2);
+        list1.removeAll(list2);
         System.out.println(list1);
     }
 }
