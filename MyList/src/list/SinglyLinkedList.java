@@ -79,8 +79,10 @@ public class SinglyLinkedList<T> {
         if (index == 0) {
             addFirstElement(obj);
         }
+
         ListItem<T> newItem = new ListItem<>(obj);
         ListItem<T> element = getItem(index - 1);
+
         newItem.setNext(element.getNext());
         element.setNext(newItem);
         count++;
@@ -116,6 +118,7 @@ public class SinglyLinkedList<T> {
 
         list.head = new ListItem<>(getHead());
         ListItem<T> node = list.head;
+
         for (ListItem<T> p = head.getNext(); p != null; p = p.getNext()) {
             node.setNext(new ListItem<>(p.getData()));
             node = node.getNext();
