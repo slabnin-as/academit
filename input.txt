@@ -1,0 +1,8 @@
+Return Value: This method returns a boolean value depicting the successfulness of the operation.
+If the element was added, it returns true, else it returns false.
+Exceptions: This method throws following exceptions:
+UnsupportedOperationException: if the add operation is not supported by this collection
+ClassCastException: if the class of the specified element prevents it from being added to this collection
+NullPointerException: if the specified element is null and this collection does not permit null elements
+IllegalArgumentException: if some property of the element prevents it from being added to this collection
+IllegalStateException: if the element cannot be added at this time due to insertion restrictions
