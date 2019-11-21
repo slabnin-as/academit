@@ -12,28 +12,25 @@ public class SinglyLinkedList<T> {
         return count;
     }
 
-    private T getHead() {
+    public T getHead() {
         if (count == 0) {
-            throw new IndexOutOfBoundsException("Список пуст!");
+            throw new NullPointerException("Список пуст!");
         }
         return head.getData();
     }
 
     private ListItem<T> getItem(int index) {
-        if (index >= count || index < 0) {
-            throw new IndexOutOfBoundsException();
+        if (index > count || index < 0) {
+            throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        ListItem<T> element = head;
-        int i = 0;
-        while (i < index) {
-            element = element.getNext();
-            i++;
-        }
-        return element;
-    }
 
-    public T getFirstElementValue() {
-        return head.getData();
+        ListItem<T> element = head;
+
+        for (int i = 0; i < index; i++) {
+            element = element.getNext();
+        }
+
+        return element;
     }
 
     public T getValue(int index) {
@@ -49,12 +46,17 @@ public class SinglyLinkedList<T> {
     }
 
     public T deleteElement(int index) {
+        if (index > count || index < 0) {
+            throw new IndexOutOfBoundsException("индекс задан неверно");
+        }
+
         if (index == 0) {
             return deleteFirstElement();
         }
+
         ListItem<T> element = getItem(index - 1);
         T temp = element.getNext().getData();
-        element.setNext(getItem(index + 1));
+        element.setNext(element.getNext().getNext());
         count--;
 
         return temp;
@@ -68,6 +70,10 @@ public class SinglyLinkedList<T> {
     }
 
     public T deleteFirstElement() {
+        if (count == 0) {
+            throw new NullPointerException("список пуст!");
+        }
+
         T temp = head.getData();
         head = head.getNext();
         count--;
@@ -144,6 +150,4 @@ public class SinglyLinkedList<T> {
 
         return builder.toString();
     }
-
-
 }

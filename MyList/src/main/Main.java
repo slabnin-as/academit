@@ -13,9 +13,10 @@ public class Main {
         //получение размера списка
         System.out.println(list.getSize());
         //получение значения первого элемента
-        System.out.println(list.getFirstElementValue());
+        System.out.println(list.getHead());
         //получение значения по индексу
-        System.out.println(list.getValue(3));
+        System.out.println("Get element by INDEX");
+        System.out.println(list.getValue(5));
         //изменение значения по индексу
         System.out.println(list.setValue(3, "ChangedValue"));
         System.out.println(list + ":" + list.getSize());
