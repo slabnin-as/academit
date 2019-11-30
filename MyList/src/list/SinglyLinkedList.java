@@ -1,5 +1,7 @@
 package list;
 
+import java.util.Objects;
+
 public class SinglyLinkedList<T> {
     private ListItem<T> head;
     private int count;
@@ -82,8 +84,13 @@ public class SinglyLinkedList<T> {
     }
 
     public void insertElement(int index, T obj) {
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("индекс задан неверно");
+        }
+
         if (index == 0) {
             addFirstElement(obj);
+            return;
         }
 
         ListItem<T> newItem = new ListItem<>(obj);
@@ -95,14 +102,18 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean deleteByValue(T value) {
-        ListItem<T> element = head;
+        for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
+            if (Objects.equals(p.getData(), value)) {
+                if (prev != null) {
+                    p = prev;
+                    p.setNext(p.getNext().getNext());
+                } else {
+                    head = head.getNext();
+                }
+                count--;
 
-        for (int i = 0; i < count; i++) {
-            if (value.equals(element.getData())) {
-                deleteElement(i);
                 return true;
             }
-            element = element.getNext();
         }
 
         return false;
@@ -115,13 +126,18 @@ public class SinglyLinkedList<T> {
             pNext = p.getNext();
             p.setNext(prev);
         }
+
         head = prev;
     }
 
     public SinglyLinkedList<T> copy() {
         SinglyLinkedList<T> list = new SinglyLinkedList<>();
-        list.count = count;
 
+        if (count == 0) {
+            return list;
+        }
+
+        list.count = count;
         list.head = new ListItem<>(getHead());
         ListItem<T> node = list.head;
 
@@ -145,6 +161,7 @@ public class SinglyLinkedList<T> {
             builder.append(element.getData().toString());
             builder.append(",");
         }
+
         builder.setLength(builder.length() - 1);
         builder.append("}");
 

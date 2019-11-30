@@ -16,12 +16,13 @@ public class Main {
         System.out.println(list.getHead());
         //получение значения по индексу
         System.out.println("Get element by INDEX");
-        System.out.println(list.getValue(5));
+        System.out.println(list.getValue(2));
         //изменение значения по индексу
         System.out.println(list.setValue(3, "ChangedValue"));
         System.out.println(list + ":" + list.getSize());
         //удаление элемента по индексу
-        System.out.println(list.deleteElement(4));
+        System.out.println("Delete by Index");
+        System.out.println(list.deleteElement(5));
         System.out.println(list + ":" + list.getSize());
         //вставка элемента в начало
         list.addFirstElement("First");
@@ -30,7 +31,8 @@ public class Main {
         list.insertElement(5, "Spring");
         System.out.println(list + ":" + list.getSize());
         //удаление по значению
-        System.out.println(list.deleteByValue("NSK"));
+        System.out.println("DeleteByValue");
+        System.out.println(list.deleteByValue("433"));
         System.out.println(list + ":" + list.getSize());
         //удаление первого элемента
         list.deleteFirstElement();
