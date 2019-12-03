@@ -18,7 +18,7 @@ public class MyHashTable<T> implements Collection<T> {
 
 
     private int getIndex(Object o) {
-        return o.hashCode() % hashTable.length;
+        return Math.abs(o.hashCode() % hashTable.length);
     }
 
     @Override

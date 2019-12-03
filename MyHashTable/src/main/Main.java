@@ -10,7 +10,5 @@ public class Main {
         table.add("Sberbank");
         table.add("Alpha");
 
-        System.out.println(table.);
-
     }
 }
