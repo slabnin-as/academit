@@ -1,5 +1,6 @@
 package list;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SinglyLinkedList<T> {
@@ -16,13 +17,13 @@ public class SinglyLinkedList<T> {
 
     public T getHead() {
         if (count == 0) {
-            throw new NullPointerException("Список пуст!");
+            throw new NoSuchElementException("Список пуст!");
         }
         return head.getData();
     }
 
     private ListItem<T> getItem(int index) {
-        if (index > count || index < 0) {
+        if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
 
@@ -48,7 +49,7 @@ public class SinglyLinkedList<T> {
     }
 
     public T deleteElement(int index) {
-        if (index > count || index < 0) {
+        if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException("индекс задан неверно");
         }
 
@@ -73,7 +74,7 @@ public class SinglyLinkedList<T> {
 
     public T deleteFirstElement() {
         if (count == 0) {
-            throw new NullPointerException("список пуст!");
+            throw new NoSuchElementException("список пуст!");
         }
 
         T temp = head.getData();
@@ -84,7 +85,7 @@ public class SinglyLinkedList<T> {
     }
 
     public void insertElement(int index, T obj) {
-        if (index >= count || index < 0) {
+        if (index > count || index < 0) {
             throw new IndexOutOfBoundsException("индекс задан неверно");
         }
 
