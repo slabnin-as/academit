@@ -1,4 +1,4 @@
-package model;
+package range;
 
 public class Range {
     private double from;
@@ -47,15 +47,11 @@ public class Range {
     }
 
     public Range[] getUnion(Range range) {
-        Range[] unionRange;
-
         if (from > range.to || to < range.from) {
-            unionRange = new Range[]{new Range(from, to), new Range(range.from, range.to)};
+            return new Range[]{new Range(from, to), new Range(range.from, range.to)};
         } else {
-            unionRange = new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
+            return new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
         }
-
-        return unionRange;
     }
 
     public Range[] getDifference(Range range) {
@@ -64,11 +60,11 @@ public class Range {
         if (range.from <= from && range.to >= to) {
             ranges = new Range[]{};
         } else if (from < range.from && to > range.to) {
-            ranges = new Range[]{new Range(from, range.from-1), new Range(range.to+1, to)};
+            ranges = new Range[]{new Range(from, range.from), new Range(range.to, to)};
         } else if (range.to <= to) {
-            ranges = new Range[]{new Range(range.to + 1, to)};
+            ranges = new Range[]{new Range(range.to, to)};
         } else {
-            ranges = new Range[]{new Range(from,range.from-1)};
+            ranges = new Range[]{new Range(from, range.from)};
         }
 
         return ranges;
