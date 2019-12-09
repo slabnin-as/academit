@@ -1,5 +1,10 @@
 package view;
 
+import model.CelsiusScale;
+import model.FahrenheitScale;
+import model.KelvinScale;
+import model.Scale;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,18 +13,15 @@ public class GuiForm {
     private JPanel contentPane;
     private JPanel topPanel;
     private JLabel lb1SelectScale;
-    private JComboBox<String> cb1Scales;
+    private JComboBox<Scale> inputScale;
     private JTextField inputTemp;
     private JPanel midPanel;
     private JLabel lb2SelectScale;
-    private JComboBox<String> cb2Scales;
+    private JComboBox<Scale> outScale;
     private JLabel lbResult;
     private JPanel botPanel;
     private JButton rbConvert;
-
-    private final String CELSIUS = "Цельсий";
-    private final String FAHRENHEIT = "Фаренгейт";
-    private final String KELVIN = "Кельвин";
+    private Scale[] scales = {new CelsiusScale(),new KelvinScale(), new FahrenheitScale()};
 
     public GuiForm() {
         frame = new JFrame("Конвертер температур");
@@ -33,13 +35,13 @@ public class GuiForm {
 
         lb1SelectScale = new JLabel("Выберите шкалу");
         lb1SelectScale.setFont(new Font(lb1SelectScale.getFont().getName(), Font.BOLD, 14));
-        cb1Scales = new JComboBox<>(new String[]{CELSIUS, FAHRENHEIT, KELVIN});
-        cb1Scales.setFont(new Font(cb1Scales.getFont().getName(), Font.BOLD, 14));
+        inputScale = new JComboBox<>(scales);
+        inputScale.setFont(new Font(inputScale.getFont().getName(), Font.BOLD, 14));
         inputTemp = new JTextField(5);
         inputTemp.setFont(new Font(inputTemp.getFont().getName(), Font.BOLD, 16));
 
         topPanel.add(lb1SelectScale);
-        topPanel.add(cb1Scales);
+        topPanel.add(inputScale);
         topPanel.add(inputTemp);
 
         midPanel = new JPanel();
@@ -47,13 +49,13 @@ public class GuiForm {
 
         lb2SelectScale = new JLabel("Выберите шкалу");
         lb2SelectScale.setFont(new Font(lb2SelectScale.getFont().getName(), Font.BOLD, 14));
-        cb2Scales = new JComboBox<>(new String[]{CELSIUS, FAHRENHEIT, KELVIN});
-        cb2Scales.setFont(new Font(cb2Scales.getFont().getName(), Font.BOLD, 14));
+        outScale = new JComboBox<>(scales);
+        outScale.setFont(new Font(outScale.getFont().getName(), Font.BOLD, 14));
         lbResult = new JLabel();
         lbResult.setFont(new Font(lbResult.getFont().getName(), Font.BOLD, 18));
 
         midPanel.add(lb2SelectScale);
-        midPanel.add(cb2Scales);
+        midPanel.add(outScale);
         midPanel.add(lbResult);
 
         botPanel = new JPanel();
@@ -75,16 +77,16 @@ public class GuiForm {
         frame.setVisible(true);
     }
 
-    public JComboBox<String> getCb1Scales() {
-        return cb1Scales;
+    public JComboBox<Scale> getInputScale() {
+        return inputScale;
     }
 
     public JTextField getInputTemp() {
         return inputTemp;
     }
 
-    public JComboBox<String> getCb2Scales() {
-        return cb2Scales;
+    public JComboBox<Scale> getOutScale() {
+        return outScale;
     }
 
     public JLabel getLbResult() {

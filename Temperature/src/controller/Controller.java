@@ -4,6 +4,7 @@ import model.TemperatureConversion;
 import view.GuiForm;
 
 import javax.swing.*;
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.Scanner;
@@ -33,16 +34,16 @@ public class Controller {
     }
 
     private void convert() {
-        String userScale = (String) guiForm.getCb1Scales().getSelectedItem();
-        String resultScale = (String) guiForm.getCb2Scales().getSelectedItem();
+        String inputScale = (String) guiForm.getInputScale().getSelectedItem();
+        String resultScale = (String) guiForm.getOutScale().getSelectedItem();
         double inputTemperature;
         double resultTemperature = 0;
 
         if (checkUserInput()) {
             inputTemperature = Double.parseDouble(guiForm.getInputTemp().getText());
 
-            assert userScale != null;
-            if (userScale.equals("Цельсий")) {
+            assert inputScale != null;
+            if (inputScale.equals("Цельсий")) {
                 assert resultScale != null;
                 switch (resultScale) {
                     case "Фаренгейт":
@@ -56,7 +57,7 @@ public class Controller {
                         break;
                 }
             }
-            if (userScale.equals("Фаренгейт")) {
+            if (inputScale.equals("Фаренгейт")) {
                 assert resultScale != null;
                 switch (resultScale) {
                     case "Цельсий":
@@ -70,7 +71,7 @@ public class Controller {
                         break;
                 }
             }
-            if (userScale.equals("Кельвин")) {
+            if (inputScale.equals("Кельвин")) {
                 assert resultScale != null;
                 switch (resultScale) {
                     case "Фаренгейт":
@@ -86,6 +87,7 @@ public class Controller {
             }
 
             guiForm.getLbResult().setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));
+            guiForm.getLbResult().setForeground(Color.BLUE);
         }
     }
 }
