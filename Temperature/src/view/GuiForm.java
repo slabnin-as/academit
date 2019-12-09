@@ -21,7 +21,8 @@ public class GuiForm {
     private JLabel lbResult;
     private JPanel botPanel;
     private JButton rbConvert;
-    private Scale[] scales = {new CelsiusScale(),new KelvinScale(), new FahrenheitScale()};
+
+    private Scale[] scales = {new CelsiusScale(), new KelvinScale(), new FahrenheitScale()};
 
     public GuiForm() {
         frame = new JFrame("Конвертер температур");

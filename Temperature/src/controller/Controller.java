@@ -1,25 +1,22 @@
 package controller;
 
-import model.TemperatureConversion;
+import model.Scale;
 import view.GuiForm;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
-    private TemperatureConversion conversion;
     private GuiForm guiForm;
 
-    public Controller(TemperatureConversion conversion, GuiForm guiForm) {
-        this.conversion = conversion;
+    public Controller(GuiForm guiForm) {
         this.guiForm = guiForm;
     }
 
     public void initController() {
-        guiForm.getRbConvert().addActionListener(e -> convert());
+        guiForm.getRbConvert().addActionListener(e -> setResult());
     }
 
     private boolean checkUserInput() {
@@ -33,61 +30,21 @@ public class Controller {
         return true;
     }
 
-    private void convert() {
-        String inputScale = (String) guiForm.getInputScale().getSelectedItem();
-        String resultScale = (String) guiForm.getOutScale().getSelectedItem();
+    private void setResult() {
+        Scale inputScale = (Scale) guiForm.getInputScale().getSelectedItem();
+        Scale resultScale = (Scale) guiForm.getOutScale().getSelectedItem();
         double inputTemperature;
-        double resultTemperature = 0;
+        double resultTemperature;
+
+        ConvertController converter;
 
         if (checkUserInput()) {
             inputTemperature = Double.parseDouble(guiForm.getInputTemp().getText());
-
-            assert inputScale != null;
-            if (inputScale.equals("Цельсий")) {
-                assert resultScale != null;
-                switch (resultScale) {
-                    case "Фаренгейт":
-                        resultTemperature = conversion.celsiusToFahrenheit(inputTemperature);
-                        break;
-                    case "Кельвин":
-                        resultTemperature = conversion.celsiusToKelvin(inputTemperature);
-                        break;
-                    default:
-                        resultTemperature = inputTemperature;
-                        break;
-                }
-            }
-            if (inputScale.equals("Фаренгейт")) {
-                assert resultScale != null;
-                switch (resultScale) {
-                    case "Цельсий":
-                        resultTemperature = conversion.fahrenheitToCelsius(inputTemperature);
-                        break;
-                    case "Кельвин":
-                        resultTemperature = conversion.fahrenheitToKelvin(inputTemperature);
-                        break;
-                    default:
-                        resultTemperature = inputTemperature;
-                        break;
-                }
-            }
-            if (inputScale.equals("Кельвин")) {
-                assert resultScale != null;
-                switch (resultScale) {
-                    case "Фаренгейт":
-                        resultTemperature = conversion.kelvinToFahrenheit(inputTemperature);
-                        break;
-                    case "Цельсий":
-                        resultTemperature = conversion.kelvinToCelsius(inputTemperature);
-                        break;
-                    default:
-                        resultTemperature = inputTemperature;
-                        break;
-                }
-            }
+            converter = new ConvertController(inputScale, resultScale, inputTemperature);
+            resultTemperature = converter.convert();
 
             guiForm.getLbResult().setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));
-            guiForm.getLbResult().setForeground(Color.BLUE);
+            guiForm.getLbResult().setForeground(converter.setColor());
         }
     }
 }

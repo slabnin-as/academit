@@ -1,9 +1,9 @@
 package model;
 
 public abstract class Scale {
-    double temperature;
+    public abstract void setTemperature(double inputTemperature);
 
-    abstract double convertToCelsius();
-    abstract double convertToFahrenheit();
-    abstract double convertToKelvin();
+    public abstract double convertToCelsius();
+
+    public abstract double convertFromCelsius(double celsiusTemperature);
 }

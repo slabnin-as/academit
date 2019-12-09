@@ -3,26 +3,22 @@ package model;
 public class FahrenheitScale extends Scale {
     private double temperature;
 
-    public void setTemperature(double inputTemperature){
+    public void setTemperature(double inputTemperature) {
         temperature = inputTemperature;
     }
+
     @Override
-    double convertToCelsius() {
+    public double convertToCelsius() {
         return (temperature - 32) * (5 / 9.0);
     }
 
     @Override
-    double convertToFahrenheit() {
-        return temperature;
+    public double convertFromCelsius(double celsiusTemperature) {
+        return celsiusTemperature * (9 / 5.0) + 32;
     }
 
     @Override
-    double convertToKelvin() {
-        return (temperature - 32) * (5 / 9.0) + 273.15;
-    }
-
-    @Override
-    public String toString(){
+    public String toString() {
         return "Фаренгейт";
     }
 }

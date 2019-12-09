@@ -7,18 +7,13 @@ public class KelvinScale extends Scale {
         temperature = inputTemperature;
     }
     @Override
-    double convertToCelsius() {
+    public double convertToCelsius() {
         return temperature - 273.15;
     }
 
     @Override
-    double convertToFahrenheit() {
-        return (temperature - 273.15) * (9 / 5.0) + 32;
-    }
-
-    @Override
-    double convertToKelvin() {
-        return temperature;
+    public double convertFromCelsius(double celsiusTemperature){
+        return celsiusTemperature + 273.15;
     }
 
     @Override

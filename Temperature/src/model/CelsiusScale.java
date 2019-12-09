@@ -1,29 +1,24 @@
 package model;
 
-public class CelsiusScale extends Scale{
+public class CelsiusScale extends Scale {
     private double temperature;
 
-    public void setTemperature(double inputTemperature){
+    public void setTemperature(double inputTemperature) {
         temperature = inputTemperature;
     }
 
     @Override
-    double convertToCelsius() {
+    public double convertToCelsius() {
         return temperature;
     }
 
     @Override
-    double convertToFahrenheit() {
-        return temperature * (9 / 5.0) + 32;
+    public double convertFromCelsius(double celsiusTemperature) {
+        return celsiusTemperature;
     }
 
     @Override
-    double convertToKelvin() {
-        return temperature + 273.15;
-    }
-
-    @Override
-    public String toString(){
+    public String toString() {
         return "Цельсий";
     }
 }
