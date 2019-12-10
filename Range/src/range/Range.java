@@ -61,10 +61,12 @@ public class Range {
             ranges = new Range[]{};
         } else if (from < range.from && to > range.to) {
             ranges = new Range[]{new Range(from, range.from), new Range(range.to, to)};
-        } else if (range.to <= to) {
+        } else if (range.to >= from && range.to <= to) {
             ranges = new Range[]{new Range(range.to, to)};
-        } else {
+        } else if (range.from > from && range.from < to) {
             ranges = new Range[]{new Range(from, range.from)};
+        } else {
+            ranges = new Range[]{new Range(from, to)};
         }
 
         return ranges;
