@@ -1,4 +1,4 @@
-package logic;
+package vector;
 
 import java.util.Arrays;
 

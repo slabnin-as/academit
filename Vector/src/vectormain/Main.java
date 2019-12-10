@@ -1,8 +1,8 @@
-package main;
+package vectormain;
 
-import logic.Vector;
+import vector.Vector;
 
-import static logic.Vector.*;
+import static vector.Vector.*;
 
 public class Main {
     public static void main(String[] args) {
