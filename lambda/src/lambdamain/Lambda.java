@@ -39,7 +39,7 @@ public class Lambda {
                 .collect(Collectors.toList());
         System.out.print("Список людей младше 18: " + teenagers + ". Их средний возраст: ");
 
-        Double averageTeensAge = personList.stream()
+        double averageTeensAge = personList.stream()
                 .filter(p -> p.getAge() < 18)
                 .mapToInt(Person::getAge)
                 .average().getAsDouble();
