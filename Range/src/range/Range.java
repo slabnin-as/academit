@@ -57,11 +57,11 @@ public class Range {
     public Range[] getDifference(Range range) {
         Range[] ranges;
 
-        if (range.from <= from && range.to >= to) {
+        if (range.from < from && range.to > to) {
             ranges = new Range[]{};
         } else if (from < range.from && to > range.to) {
             ranges = new Range[]{new Range(from, range.from), new Range(range.to, to)};
-        } else if (range.to >= from && range.to <= to) {
+        } else if (range.to > from && range.to < to) {
             ranges = new Range[]{new Range(range.to, to)};
         } else if (range.from > from && range.from < to) {
             ranges = new Range[]{new Range(from, range.from)};
