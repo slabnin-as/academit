@@ -42,7 +42,8 @@ public class Lambda {
         double averageTeensAge = personList.stream()
                 .filter(p -> p.getAge() < 18)
                 .mapToInt(Person::getAge)
-                .average().getAsDouble();
+                .average()
+                .getAsDouble();
         System.out.println(averageTeensAge);
 
         //Г) при помощи группировки получить Map , в котором ключи
