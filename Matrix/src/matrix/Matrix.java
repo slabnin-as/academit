@@ -55,11 +55,13 @@ public class Matrix {
             }
         }
 
-        this.rows = rows;
+        this.rows = new Vector[rows.length];
 
         for (int i = 0; i < this.rows.length; i++) {
+            this.rows[i] = new Vector(rows[i]);
+
             if (this.rows[i].getSize() < maxVectorSize) {
-                this.rows[i] = this.rows[i].sum(new Vector(maxVectorSize));
+                this.rows[i].sum(new Vector(maxVectorSize));
             }
         }
     }
