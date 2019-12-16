@@ -43,7 +43,7 @@ public class MatrixTest {
         matrix2.sum(matrix2);
         System.out.println(matrix2);
         //разница матриц
-        matrix2.sub(matrix2);
+        matrix2.subtraction(matrix2);
         System.out.println(matrix2);
         //перемножение матриц
         Matrix mt1 = new Matrix(new double[][]{{5, 4}, {2, 5}, {3, 1}});
@@ -54,11 +54,10 @@ public class MatrixTest {
         Matrix matrix5 = new Matrix(new double[][]{{1, 3, 4, 6}, {4, 6, 2, 8}, {7, 2, 5, 8}, {8, 3, 6, 1}});
         System.out.println(matrix5.getDeterminant());
 
-        System.out.println(matrix5.getRowSize() + "x" + matrix5.getColumnSize());
+        System.out.println(matrix5.getRowCount() + "x" + matrix5.getColumnCount());
 
         System.out.println(matrix1);
         System.out.println(matrix2);
         System.out.println(Matrix.sum(matrix1, matrix2));
-
     }
 }

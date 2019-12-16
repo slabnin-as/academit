@@ -5,36 +5,43 @@ import vector.Vector;
 public class Matrix {
     private Vector[] rows;
 
-    public Matrix(int rows, int columns) {
-        if (rows <= 0 || columns <= 0) {
+    public Matrix(int rowsCount, int columnsCount) {
+        if (rowsCount <= 0 || columnsCount <= 0) {
             throw new IllegalArgumentException("Размер не может быть меньше 0");
         }
 
-        this.rows = new Vector[rows];
+        rows = new Vector[rowsCount];
 
-        for (int i = 0; i < this.rows.length; i++) {
-            this.rows[i] = new Vector(columns);
+        for (int i = 0; i < rows.length; i++) {
+            rows[i] = new Vector(columnsCount);
         }
     }
 
     public Matrix(Matrix matrix) {
-        this.rows = matrix.rows.clone();
+        rows = new Vector[matrix.rows.length];
+
+        for (int i = 0; i < rows.length; i++) {
+            rows[i] = new Vector(matrix.rows[i]);
+        }
     }
 
     public Matrix(double[][] array) {
+        if (array.length <= 0) {
+            throw new IllegalArgumentException("Размер массива должен быть больше 0");
+        }
         //поиск максимально длинной строки в переданном массиве
-        int maxRow = 0;
+        int maxRowLength = 0;
 
         for (double[] row : array) {
-            if (row.length > maxRow) {
-                maxRow = row.length;
+            if (row.length > maxRowLength) {
+                maxRowLength = row.length;
             }
         }
 
         rows = new Vector[array.length];
 
         for (int i = 0; i < array.length; i++) {
-            rows[i] = new Vector(maxRow, array[i]);
+            rows[i] = new Vector(maxRowLength, array[i]);
         }
     }
 
@@ -71,27 +78,38 @@ public class Matrix {
         return builder.toString();
     }
 
-    public int getRowSize() {
+    public int getRowCount() {
         return rows.length;
     }
 
-    public int getColumnSize() {
+    public int getColumnCount() {
         return rows[0].getSize();
     }
 
     public Vector getRow(int index) {
-        return rows[index];
+        if (index < 0 || index >= rows.length) {
+            throw new IndexOutOfBoundsException("Индекс задан неверно");
+        }
+        return new Vector(rows[index]);
     }
 
     public void setRow(int index, Vector vector) {
-        if(vector.getSize() != getColumnSize()){
-            throw new IllegalArgumentException("Размер вектора должен быть равен: " + getColumnSize());
+        if (index < 0 || index >= rows.length) {
+            throw new IndexOutOfBoundsException("Индекс задан неверно");
+        }
+
+        if (vector.getSize() != getColumnCount()) {
+            throw new IllegalArgumentException("Размер вектора должен быть равен: " + getColumnCount());
         }
 
         rows[index] = new Vector(vector);
     }
 
     public Vector getColumn(int index) {
+        if (index < 0 || index >= getColumnCount()) {
+            throw new IndexOutOfBoundsException("Индекс задан неверно");
+        }
+
         Vector vector = new Vector(rows.length);
 
         for (int i = 0; i < rows.length; i++) {
@@ -102,7 +120,7 @@ public class Matrix {
     }
 
     public void transpose() {
-        Vector[] rows = new Vector[getColumnSize()];
+        Vector[] rows = new Vector[getColumnCount()];
 
         for (int i = 0; i < rows.length; i++) {
             rows[i] = getColumn(i);
@@ -116,15 +134,15 @@ public class Matrix {
             row.multiply(scalar);
         }
     }
-    
+
     private double getMinor(int columnIndex) {
-        double[][] matrixTemp = new double[getRowSize() - 1][getColumnSize() - 1];
+        double[][] matrixTemp = new double[getRowCount() - 1][getColumnCount() - 1];
 
         int matrixTempRows = 0;
 
         for (int i = 1; i < rows.length; i++) {
             int matrixTempColumns = 0;
-            for (int j = 0; j < getColumnSize(); j++) {
+            for (int j = 0; j < getColumnCount(); j++) {
                 if (j == columnIndex) {
                     continue;
                 }
@@ -138,15 +156,15 @@ public class Matrix {
     }
 
     public double getDeterminant() {
-        if (getRowSize() != getColumnSize()) {
+        if (getRowCount() != getColumnCount()) {
             throw new IllegalArgumentException("Матрица должны быть квадратная!");
         }
 
-        if (getRowSize() == 1) {
+        if (getRowCount() == 1) {
             return rows[0].getComponent(0);
         }
 
-        if (getRowSize() == 2) {
+        if (getRowCount() == 2) {
             return rows[0].getComponent(0) * rows[1].getComponent(1) - rows[1].getComponent(0) * rows[0].getComponent(1);
         }
 
@@ -157,14 +175,13 @@ public class Matrix {
         }
 
         return determinant;
-
     }
 
     public Vector multiplyByVector(Vector vector) {
-        if (vector.getSize() != getColumnSize()) {
+        if (vector.getSize() != getColumnCount()) {
             throw new IllegalArgumentException("Число столбцов матрицы и размер вектора должны быть равны!");
         }
-        Vector resultVector = new Vector(getRowSize());
+        Vector resultVector = new Vector(getRowCount());
 
         for (int i = 0; i < rows.length; i++) {
             resultVector.setComponent(i, Vector.multiplyScalar(vector, rows[i]));
@@ -174,7 +191,7 @@ public class Matrix {
     }
 
     public void sum(Matrix matrix) {
-        if (getRowSize() != matrix.getRowSize() && getColumnSize() != matrix.getColumnSize()) {
+        if (getRowCount() != matrix.getRowCount() || getColumnCount() != matrix.getColumnCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
 
@@ -183,8 +200,8 @@ public class Matrix {
         }
     }
 
-    public void sub(Matrix matrix) {
-        if (getRowSize() != matrix.getRowSize() && getColumnSize() != matrix.getColumnSize()) {
+    public void subtraction(Matrix matrix) {
+        if (getRowCount() != matrix.getRowCount() || getColumnCount() != matrix.getColumnCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
 
@@ -194,7 +211,7 @@ public class Matrix {
     }
 
     public static Matrix sum(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getRowSize() != matrix2.getRowSize() || matrix1.getColumnSize() != matrix2.getColumnSize()) {
+        if (matrix1.getRowCount() != matrix2.getRowCount() || matrix1.getColumnCount() != matrix2.getColumnCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
 
@@ -204,23 +221,23 @@ public class Matrix {
         return resultMatrix;
     }
 
-    public static Matrix sub(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getRowSize() != matrix2.getRowSize() || matrix1.getColumnSize() != matrix2.getColumnSize()) {
+    public static Matrix subtraction(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.getRowCount() != matrix2.getRowCount() || matrix1.getColumnCount() != matrix2.getColumnCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
 
         Matrix resultMatrix = new Matrix(matrix1);
-        resultMatrix.sub(matrix2);
+        resultMatrix.subtraction(matrix2);
 
         return resultMatrix;
     }
 
     public static Matrix multiplyMatrix(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getColumnSize() != matrix2.getRowSize()) {
+        if (matrix1.getColumnCount() != matrix2.getRowCount()) {
             throw new IllegalArgumentException("Число столбцов матрицы А должны быть равно числу строк матрицы В");
         }
 
-        double[][] result = new double[matrix1.getRowSize()][matrix2.getColumnSize()];
+        double[][] result = new double[matrix1.getRowCount()][matrix2.getColumnCount()];
 
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[0].length; j++) {
