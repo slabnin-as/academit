@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class TestRange {
     public static void main(String[] args) {
-        Range range1 = new Range(6, 12);
-        Range range2 = new Range(7, 12);
+        Range range1 = new Range(8, 15);
+        Range range2 = new Range(6, 12);
 
         System.out.println(range1.getIntersection(range2));
         System.out.println(Arrays.toString(range1.getUnion(range2)));
