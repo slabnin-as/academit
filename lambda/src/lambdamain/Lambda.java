@@ -5,6 +5,7 @@ import person.Person;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 public class Lambda {
@@ -18,7 +19,7 @@ public class Lambda {
         personList.add(new Person("Bill", 23));
         personList.add(new Person("John", 42));
         personList.get(3).setName("Robert");
-        personList.get(3).setAge(10);
+        personList.get(3).setAge(45);
 
         //поиск уникальных имен
         List<String> uniqueNames = personList.stream()
@@ -39,12 +40,12 @@ public class Lambda {
                 .collect(Collectors.toList());
         System.out.print("Список людей младше 18: " + teenagers + ". Их средний возраст: ");
 
-        double averageTeensAge = personList.stream()
+        OptionalDouble averageTeensAge = personList.stream()
                 .filter(p -> p.getAge() < 18)
                 .mapToInt(Person::getAge)
-                .average()
-                .getAsDouble();
-        System.out.println(averageTeensAge);
+                .average();
+
+        averageTeensAge.ifPresent(System.out::println);
 
         //Г) при помощи группировки получить Map , в котором ключи
         //имена, а значения средний возраст
@@ -56,7 +57,7 @@ public class Lambda {
         //их имена в порядке убывания возраста
         List<String> personFrom20To45 = personList.stream()
                 .filter(p -> p.getAge() >= 20 && p.getAge() <= 45)
-                .sorted((p1, p2) -> p2.getAge().compareTo(p1.getAge()))
+                .sorted((p1, p2) -> p2.getAge() - p1.getAge())
                 .map(Person::getName)
                 .collect(Collectors.toList());
 
