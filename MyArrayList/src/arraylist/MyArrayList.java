@@ -24,6 +24,7 @@ public class MyArrayList<T> implements List<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException("следующего элемента нет");
             }
+
             if (currentModCount != modCount) {
                 throw new ConcurrentModificationException("размер коллекции был изменен");
             }
@@ -79,6 +80,7 @@ public class MyArrayList<T> implements List<T> {
         if (size == items.length) {
             ensureCapacity();
         }
+
         items[size] = e;
         size++;
         modCount++;
@@ -94,6 +96,7 @@ public class MyArrayList<T> implements List<T> {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -104,6 +107,7 @@ public class MyArrayList<T> implements List<T> {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -149,6 +153,7 @@ public class MyArrayList<T> implements List<T> {
         if (collection.size() == 0) {
             return false;
         }
+
         boolean isRemoved = false;
         for (int i = 0; i < size; i++) {
             if (collection.contains(items[i])) {
@@ -157,6 +162,7 @@ public class MyArrayList<T> implements List<T> {
                 isRemoved = true;
             }
         }
+
         return isRemoved;
     }
 
@@ -166,6 +172,7 @@ public class MyArrayList<T> implements List<T> {
             clear();
             return true;
         }
+
         boolean isRemoved = false;
         for (int i = 0; i < size; i++) {
             if (!collection.contains(items[i])) {
@@ -174,6 +181,7 @@ public class MyArrayList<T> implements List<T> {
                 isRemoved = true;
             }
         }
+
         return isRemoved;
     }
 
@@ -198,6 +206,7 @@ public class MyArrayList<T> implements List<T> {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
+
         T prev = items[i];
         items[i] = e;
 
@@ -209,6 +218,7 @@ public class MyArrayList<T> implements List<T> {
         if (i < 0 || i >= size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
+
         if (size == items.length) {
             ensureCapacity();
         }
@@ -241,6 +251,7 @@ public class MyArrayList<T> implements List<T> {
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -251,6 +262,7 @@ public class MyArrayList<T> implements List<T> {
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -276,7 +288,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("[");
-        if(isEmpty()){
+        if (isEmpty()) {
             builder.append("]");
             return builder.toString();
         }
