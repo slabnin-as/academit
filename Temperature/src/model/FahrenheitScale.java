@@ -1,15 +1,9 @@
 package model;
 
-public class FahrenheitScale extends Scale {
-    private double temperature;
-
-    public void setTemperature(double inputTemperature) {
-        temperature = inputTemperature;
-    }
-
+public class FahrenheitScale implements Scale {
     @Override
-    public double convertToCelsius() {
-        return (temperature - 32) * (5 / 9.0);
+    public double convertToCelsius(double inputTemperature) {
+        return (inputTemperature - 32) * (5 / 9.0);
     }
 
     @Override

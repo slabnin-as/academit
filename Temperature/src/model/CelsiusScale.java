@@ -1,15 +1,9 @@
 package model;
 
-public class CelsiusScale extends Scale {
-    private double temperature;
-
-    public void setTemperature(double inputTemperature) {
-        temperature = inputTemperature;
-    }
-
+public class CelsiusScale implements Scale {
     @Override
-    public double convertToCelsius() {
-        return temperature;
+    public double convertToCelsius(double inputTemperature) {
+        return inputTemperature;
     }
 
     @Override

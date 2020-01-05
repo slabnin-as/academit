@@ -17,8 +17,7 @@ class ConvertController {
     }
 
     double convert() {
-        inputScale.setTemperature(inputTemperature);
-        celsiusTemperature = inputScale.convertToCelsius();
+        celsiusTemperature = inputScale.convertToCelsius(inputTemperature);
         return outScale.convertFromCelsius(celsiusTemperature);
     }
 
