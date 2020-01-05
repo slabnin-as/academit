@@ -9,7 +9,8 @@ public class MatrixTest {
         rows[0] = new Vector(new double[]{-5.6, 7.7, 2.4, -9.2, 2.8});
         rows[1] = new Vector(new double[]{8.4, 2.9, 4.3, 5.2, -8.3});
 
-        double[][] array = {{1, 3, 4}, {1, 2, 3, 7, 2}, {1, 4}};
+        double[][] array = {{1, 3, 4}, {1, 2, 3, 7, 2}, {}};
+        //double[][] array = {{}, {}, {}};
 
         Matrix matrix1 = new Matrix(3, 5);
         Matrix matrix2 = new Matrix(array);
@@ -58,6 +59,6 @@ public class MatrixTest {
 
         System.out.println(matrix1);
         System.out.println(matrix2);
-        System.out.println(Matrix.sum(matrix1, matrix2));
+        System.out.println(Matrix.getSum(matrix1, matrix2));
     }
 }

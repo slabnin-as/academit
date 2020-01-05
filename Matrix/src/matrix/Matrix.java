@@ -34,13 +34,13 @@ public class Matrix {
         int maxRowLength = 0;
 
         for (double[] row : array) {
-            if (row.length <= 0) {
-                throw new IllegalArgumentException("Размер массива должен быть больше 0");
-            }
-
             if (row.length > maxRowLength) {
                 maxRowLength = row.length;
             }
+        }
+
+        if (maxRowLength == 0) {
+            throw new IllegalArgumentException("Передан пустой массив!");
         }
 
         rows = new Vector[array.length];
@@ -78,7 +78,7 @@ public class Matrix {
 
         builder.append("{");
         for (Vector v : rows) {
-            builder.append(v).append(",").append(" ");
+            builder.append(v).append(", ");
         }
         builder.setLength(builder.length() - 2);
         builder.append("}");
@@ -220,7 +220,7 @@ public class Matrix {
         }
     }
 
-    public static Matrix sum(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
@@ -231,7 +231,7 @@ public class Matrix {
         return resultMatrix;
     }
 
-    public static Matrix subtract(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getSubtract(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
