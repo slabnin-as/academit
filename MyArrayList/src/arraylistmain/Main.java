@@ -32,5 +32,8 @@ public class Main {
         System.out.println(list2);
         list1.removeAll(list2);
         System.out.println(list1);
+
+        MyArrayList<String> list3 = new MyArrayList<>(0);
+        list3.ensureCapacity(10);
     }
 }
