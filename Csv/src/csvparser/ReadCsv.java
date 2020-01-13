@@ -23,14 +23,14 @@ public class ReadCsv {
             writer.println("<table border=\"1\">");
 
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] splitText = line.split(",");
+                StringBuilder line = new StringBuilder(scanner.nextLine());
+                String[] splitText = line.toString().split(",");
                 ArrayList<String> cells = new ArrayList<>();
 
                 for (int i = 0; i < splitText.length; i++) {
                     if (readNextLine(splitText[i])) {
-                        line = line + cellsLineSeparator + scanner.nextLine();
-                        splitText = line.split(",");
+                        line.append(cellsLineSeparator).append(scanner.nextLine());
+                        splitText = line.toString().split(",");
                     }
                     if (isPrevCellsPart(splitText[i])) {
                         cells.set(cells.size() - 1, cells.get(cells.size() - 1) + "," + splitText[i]);
