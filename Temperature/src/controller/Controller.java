@@ -1,5 +1,6 @@
 package controller;
 
+import model.Converter;
 import model.Scale;
 import view.GuiForm;
 
@@ -33,11 +34,11 @@ public class Controller {
         Scale inputScale = (Scale) guiForm.getInputScale().getSelectedItem();
         Scale resultScale = (Scale) guiForm.getOutScale().getSelectedItem();
 
-        ConvertController converter;
+        Converter converter;
 
         if (checkUserInput()) {
             double inputTemperature = Double.parseDouble(guiForm.getInputTemp().getText());
-            converter = new ConvertController(inputScale, resultScale, inputTemperature);
+            converter = new Converter(inputScale, resultScale, inputTemperature);
             double resultTemperature = converter.convert();
 
             guiForm.getLbResult().setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));

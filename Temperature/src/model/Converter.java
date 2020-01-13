@@ -1,27 +1,26 @@
-package controller;
-
-import model.*;
+package model;
 
 import java.awt.*;
 
-class ConvertController {
+
+public class Converter {
     private double celsiusTemperature;
     private double inputTemperature;
     private Scale inputScale;
     private Scale outScale;
 
-    ConvertController(Scale inputScale, Scale outScale, double inputTemperature) {
+    public Converter(Scale inputScale, Scale outScale, double inputTemperature) {
         this.inputScale = inputScale;
         this.outScale = outScale;
         this.inputTemperature = inputTemperature;
     }
 
-    double convert() {
+    public double convert() {
         celsiusTemperature = inputScale.convertToCelsius(inputTemperature);
         return outScale.convertFromCelsius(celsiusTemperature);
     }
 
-    Color setColor() {
+    public Color setColor() {
         if (celsiusTemperature > 0) {
             return Color.RED;
         } else {

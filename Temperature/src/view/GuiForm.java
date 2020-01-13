@@ -14,6 +14,7 @@ public class GuiForm {
     private JComboBox<Scale> outScale;
     private JLabel lbResult;
     private JButton rbConvert;
+    private Scale[] scales;
 
     public GuiForm() {
         Scale[] scales = {new CelsiusScale(), new KelvinScale(), new FahrenheitScale()};
