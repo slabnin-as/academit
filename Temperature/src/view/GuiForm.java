@@ -56,6 +56,7 @@ public class GuiForm {
 
             rbConvert = new JButton("Перевести");
             rbConvert.setFont(new Font(rbConvert.getFont().getName(), Font.BOLD, 14));
+            rbConvert.addActionListener(e -> setResult());
 
             botPanel.add(rbConvert);
 
