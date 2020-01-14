@@ -231,7 +231,7 @@ public class Matrix {
         return resultMatrix;
     }
 
-    public static Matrix getSubtract(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Матрицы должны быть одного размера!");
         }
