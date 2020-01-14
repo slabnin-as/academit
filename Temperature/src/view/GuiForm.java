@@ -90,7 +90,6 @@ public class GuiForm {
     private boolean checkUserInput() {
         Scanner scanner = new Scanner(inputTemp.getText());
         scanner.useLocale(Locale.ENGLISH);
-        
         if (!scanner.hasNextDouble()) {
             showErrorMessage();
             return false;
