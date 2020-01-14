@@ -10,6 +10,6 @@ public class Controller {
     }
 
     public void initController() {
-        guiForm.getRbConvert().addActionListener(e -> guiForm.setResult());
+        guiForm.getConvertButton().addActionListener(e -> guiForm.setResult());
     }
 }

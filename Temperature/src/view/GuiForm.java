@@ -73,11 +73,11 @@ public class GuiForm {
         return inputScale;
     }
 
-    private JComboBox<Scale> getOutScale() {
+    private JComboBox<Scale> getOutputScale() {
         return outScale;
     }
 
-    public JButton getRbConvert() {
+    public JButton getConvertButton() {
         return rbConvert;
     }
 
@@ -98,7 +98,7 @@ public class GuiForm {
 
     public void setResult() {
         Scale inputScale = (Scale) getInputScale().getSelectedItem();
-        Scale resultScale = (Scale) getOutScale().getSelectedItem();
+        Scale resultScale = (Scale) getOutputScale().getSelectedItem();
 
         Converter converter;
 
