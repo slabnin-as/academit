@@ -1,12 +1,12 @@
 package view;
 
-import model.CelsiusScale;
-import model.FahrenheitScale;
-import model.KelvinScale;
-import model.Scale;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class GuiForm {
     private JComboBox<Scale> inputScale;
@@ -14,11 +14,8 @@ public class GuiForm {
     private JComboBox<Scale> outScale;
     private JLabel lbResult;
     private JButton rbConvert;
-    private Scale[] scales;
 
-    public GuiForm() {
-        Scale[] scales = {new CelsiusScale(), new KelvinScale(), new FahrenheitScale()};
-
+    public GuiForm(Scale[] scales) {
         JFrame frame = new JFrame("Конвертер температур");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -72,28 +69,47 @@ public class GuiForm {
         frame.setVisible(true);
     }
 
-    public JComboBox<Scale> getInputScale() {
+    private JComboBox<Scale> getInputScale() {
         return inputScale;
     }
 
-    public JTextField getInputTemp() {
-        return inputTemp;
-    }
-
-    public JComboBox<Scale> getOutScale() {
+    private JComboBox<Scale> getOutScale() {
         return outScale;
-    }
-
-    public JLabel getLbResult() {
-        return lbResult;
     }
 
     public JButton getRbConvert() {
         return rbConvert;
     }
 
-    public void showErrorMessage() {
+    private void showErrorMessage() {
         JOptionPane.showMessageDialog(null, "Введите число!", "Неверный ввод", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private boolean checkUserInput() {
+        Scanner scanner = new Scanner(inputTemp.getText());
+        scanner.useLocale(Locale.ENGLISH);
+        if (!scanner.hasNextDouble()) {
+            showErrorMessage();
+            return false;
+        }
+
+        return true;
+    }
+
+    public void setResult() {
+        Scale inputScale = (Scale) getInputScale().getSelectedItem();
+        Scale resultScale = (Scale) getOutScale().getSelectedItem();
+
+        Converter converter;
+
+        if (checkUserInput()) {
+            double inputTemperature = Double.parseDouble(inputTemp.getText());
+            converter = new Converter(inputScale, resultScale, inputTemperature);
+            double resultTemperature = converter.convert();
+
+            lbResult.setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));
+            lbResult.setForeground(converter.setColor());
+        }
     }
 }
 
