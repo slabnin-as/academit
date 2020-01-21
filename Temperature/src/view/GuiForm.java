@@ -6,14 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Locale;
-import java.util.Scanner;
 
 public class GuiForm {
     private JComboBox<Scale> inputScale;
-    private JTextField inputTemp;
-    private JComboBox<Scale> outScale;
-    private JLabel lbResult;
-    private JButton rbConvert;
+    private JTextField inputTemperature;
+    private JComboBox<Scale> outputScale;
+    private JLabel resultField;
+    private JButton convertButton;
 
     public GuiForm(Scale[] scales) {
         SwingUtilities.invokeLater(() -> {
@@ -30,39 +29,39 @@ public class GuiForm {
             lbInputScale.setFont(new Font(lbInputScale.getFont().getName(), Font.BOLD, 14));
             inputScale = new JComboBox<>(scales);
             inputScale.setFont(new Font(inputScale.getFont().getName(), Font.BOLD, 14));
-            inputTemp = new JTextField(5);
-            inputTemp.setFont(new Font(inputTemp.getFont().getName(), Font.BOLD, 16));
+            inputTemperature = new JTextField(5);
+            inputTemperature.setFont(new Font(inputTemperature.getFont().getName(), Font.BOLD, 16));
 
             topPanel.add(lbInputScale);
             topPanel.add(inputScale);
-            topPanel.add(inputTemp);
+            topPanel.add(inputTemperature);
 
-            JPanel midPanel = new JPanel();
-            midPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 5));
+            JPanel middlePanel = new JPanel();
+            middlePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 5));
 
             JLabel lbOutputScale = new JLabel("Выберите шкалу");
             lbOutputScale.setFont(new Font(lbOutputScale.getFont().getName(), Font.BOLD, 14));
-            outScale = new JComboBox<>(scales);
-            outScale.setFont(new Font(outScale.getFont().getName(), Font.BOLD, 14));
-            lbResult = new JLabel();
-            lbResult.setFont(new Font(lbResult.getFont().getName(), Font.BOLD, 18));
+            outputScale = new JComboBox<>(scales);
+            outputScale.setFont(new Font(outputScale.getFont().getName(), Font.BOLD, 14));
+            resultField = new JLabel();
+            resultField.setFont(new Font(resultField.getFont().getName(), Font.BOLD, 18));
 
-            midPanel.add(lbOutputScale);
-            midPanel.add(outScale);
-            midPanel.add(lbResult);
+            middlePanel.add(lbOutputScale);
+            middlePanel.add(outputScale);
+            middlePanel.add(resultField);
 
-            JPanel botPanel = new JPanel();
-            botPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+            JPanel bottomPanel = new JPanel();
+            bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-            rbConvert = new JButton("Перевести");
-            rbConvert.setFont(new Font(rbConvert.getFont().getName(), Font.BOLD, 14));
-            rbConvert.addActionListener(e -> setResult());
+            convertButton = new JButton("Перевести");
+            convertButton.setFont(new Font(convertButton.getFont().getName(), Font.BOLD, 14));
+            convertButton.addActionListener(e -> setResult());
 
-            botPanel.add(rbConvert);
+            bottomPanel.add(convertButton);
 
             contentPane.add(topPanel);
-            contentPane.add(midPanel);
-            contentPane.add(botPanel);
+            contentPane.add(middlePanel);
+            contentPane.add(bottomPanel);
 
             frame.setContentPane(contentPane);
             frame.pack();
@@ -77,39 +76,26 @@ public class GuiForm {
     }
 
     private JComboBox<Scale> getOutputScale() {
-        return outScale;
-    }
-
-    public JButton getConvertButton() {
-        return rbConvert;
+        return outputScale;
     }
 
     private void showErrorMessage() {
         JOptionPane.showMessageDialog(null, "Введите число!", "Неверный ввод", JOptionPane.ERROR_MESSAGE);
     }
 
-    private boolean checkUserInput() {
-        Scanner scanner = new Scanner(inputTemp.getText());
-        scanner.useLocale(Locale.ENGLISH);
-        if (!scanner.hasNextDouble()) {
-            showErrorMessage();
-            return false;
-        }
-
-        return true;
-    }
-
-    public void setResult() {
+    private void setResult() {
         Scale inputScale = (Scale) getInputScale().getSelectedItem();
         Scale resultScale = (Scale) getOutputScale().getSelectedItem();
 
-        if (checkUserInput()) {
-            double inputTemperature = Double.parseDouble(inputTemp.getText());
-            Converter converter = new Converter(inputScale, resultScale, inputTemperature);
-            double resultTemperature = converter.convert();
+        try {
+            double inputTemperature = Double.parseDouble(this.inputTemperature.getText());
+            Converter converter = new Converter(inputScale, resultScale);
+            double resultTemperature = converter.convert(inputTemperature);
 
-            lbResult.setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));
-            lbResult.setForeground(converter.setColor());
+            resultField.setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));
+            resultField.setForeground(converter.useColor());
+        } catch (NumberFormatException e) {
+            showErrorMessage();
         }
     }
 }
