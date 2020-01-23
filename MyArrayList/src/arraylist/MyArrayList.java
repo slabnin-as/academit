@@ -56,13 +56,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (Objects.equals(o, items[i])) {
-                return true;
-            }
-        }
-
-        return false;
+        return indexOf(o) >= 0;
     }
 
     @Override
@@ -87,6 +81,7 @@ public class MyArrayList<T> implements List<T> {
         }
 
         System.arraycopy(items, 0, ts, 0, size);
+        ts[size] = null;
 
         return ts;
     }
@@ -129,14 +124,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-
         return addAll(size, collection);
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> collection) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("Индекс задан неверно!");
+            throw new IndexOutOfBoundsException("Индекс задан неверно!");
         }
 
         if (collection.size() == 0) {
@@ -144,9 +138,14 @@ public class MyArrayList<T> implements List<T> {
         }
 
         int newSize = size + collection.size();
-        ensureCapacity(newSize);
+        if (newSize > items.length) {
+            ensureCapacity(newSize);
+        }
 
-        System.arraycopy(items, index, items, index + collection.size(), size - index);
+        if (index != size) {
+            System.arraycopy(items, index, items, index + collection.size(), size - index);
+        }
+
         int i = index;
         for (T e : collection) {
             items[i] = e;
@@ -226,7 +225,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int i, T e) {
-        if (i < 0 || i >= size) {
+        if (i < 0 || i > size) {
             throw new IndexOutOfBoundsException("неверный индекс");
         }
 
@@ -301,10 +300,12 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("[");
+
         if (isEmpty()) {
             builder.append("]");
             return builder.toString();
         }
+
         for (int i = 0; i < size; i++) {
             builder.append(items[i]);
             builder.append(", ");

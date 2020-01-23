@@ -16,7 +16,7 @@ public class Main {
         System.out.println(list1);
         System.out.println(list2);
 
-        list2.add(1, -258);
+        list2.add(3, -258);
         System.out.println(list2);
 
         list1.addAll(list2);
@@ -35,5 +35,8 @@ public class Main {
 
         MyArrayList<String> list3 = new MyArrayList<>(0);
         list3.ensureCapacity(10);
+        list3.add("lol");
+        list3.add(null);
+        System.out.println(list3.contains(null));
     }
 }
