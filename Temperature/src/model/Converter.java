@@ -18,7 +18,7 @@ public class Converter {
         return outScale.convertFromCelsius(celsiusTemperature);
     }
 
-    public Color useColor() {
+    public Color getColor() {
         if (celsiusTemperature > 0) {
             return Color.RED;
         } else {

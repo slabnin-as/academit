@@ -84,16 +84,15 @@ public class GuiForm {
     }
 
     private void setResult() {
-        Scale inputScale = (Scale) getInputScale().getSelectedItem();
-        Scale resultScale = (Scale) getOutputScale().getSelectedItem();
-
         try {
             double inputTemperature = Double.parseDouble(this.inputTemperature.getText());
+            Scale inputScale = (Scale) getInputScale().getSelectedItem();
+            Scale resultScale = (Scale) getOutputScale().getSelectedItem();
             Converter converter = new Converter(inputScale, resultScale);
             double resultTemperature = converter.convert(inputTemperature);
 
             resultField.setText(DecimalFormat.getNumberInstance(Locale.ENGLISH).format(resultTemperature));
-            resultField.setForeground(converter.useColor());
+            resultField.setForeground(converter.getColor());
         } catch (NumberFormatException e) {
             showErrorMessage();
         }
