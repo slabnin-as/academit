@@ -2,6 +2,8 @@ package arraylistmain;
 
 import arraylist.MyArrayList;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         MyArrayList<Integer> list1 = new MyArrayList<>(0);
@@ -12,7 +14,7 @@ public class Main {
         MyArrayList<Integer> list2 = new MyArrayList<>(8);
         list2.add(101);
         list2.add(102);
-        list2.add(103);
+        list2.add(54);
         System.out.println(list1);
         System.out.println(list2);
 
@@ -38,5 +40,15 @@ public class Main {
         list3.add("lol");
         list3.add(null);
         System.out.println(list3.contains(null));
+
+        Integer[] test = {4, 6, 1, 9, 3, 5};
+        test = list1.toArray(test);
+        System.out.println(Arrays.toString(test));
+
+        list2.clear();
+        System.out.println(list2 + ": " + list2.size());
+
+        System.out.println(list1.retainAll(list2));
+        System.out.println("RetainAll: " + list1);
     }
 }

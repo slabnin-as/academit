@@ -8,6 +8,9 @@ public class MyArrayList<T> implements List<T> {
     private int modCount;
 
     public MyArrayList(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Размер не может быть отрицательным!");
+        }
         //noinspection unchecked
         items = (T[]) new Object[size];
     }
@@ -81,7 +84,11 @@ public class MyArrayList<T> implements List<T> {
         }
 
         System.arraycopy(items, 0, ts, 0, size);
-        ts[size] = null;
+
+        if (ts.length > size) {
+            ts[size] = null;
+        }
+
 
         return ts;
     }
@@ -177,11 +184,8 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        if (collection.size() == 0) {
-            return false;
-        }
-
         boolean isRemoved = false;
+
         for (int i = 0; i < size; i++) {
             if (!collection.contains(items[i])) {
                 remove(i);
@@ -198,6 +202,7 @@ public class MyArrayList<T> implements List<T> {
         for (int i = 0; i < size; i++) {
             items[i] = null;
         }
+        size = 0;
 
         modCount++;
     }
@@ -232,7 +237,7 @@ public class MyArrayList<T> implements List<T> {
         if (size == items.length) {
             increaseCapacity();
         }
-        System.arraycopy(items, i, items, i + 1, size + 1 - i);
+        System.arraycopy(items, i, items, i + 1, size - i);
 
         items[i] = e;
         size++;
