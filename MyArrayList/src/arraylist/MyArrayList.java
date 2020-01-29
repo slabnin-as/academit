@@ -202,8 +202,8 @@ public class MyArrayList<T> implements List<T> {
         for (int i = 0; i < size; i++) {
             items[i] = null;
         }
-        size = 0;
 
+        size = 0;
         modCount++;
     }
 
